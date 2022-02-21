@@ -1,0 +1,11 @@
+import './css/index.css';
+import './style/index.scss';
+import image from './image/1.jpeg';
+var root = document.getElementById('root');
+var oDiv = document.createElement('div');
+var img = new Image();
+img.src = image;
+oDiv.innerText = '我是 div';
+oDiv.classList.add('divWrap');
+root.append(oDiv);
+root.append(img);
