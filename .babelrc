@@ -8,5 +8,7 @@
               "regenerator": true,
               "version": "7.0.0-beta.0"
             }]
+        // ["@babel/plugin-syntax-dynamic-import"]
     ]
+    
 }
