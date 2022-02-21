@@ -1,0 +1,11 @@
+#root {
+    background-color: red;
+    width: 300px;
+    height: 300px;
+    transform: translate(100px, 100px);
+    .divWrap {
+        background-color: blue;
+        width: 100px;
+        height: 100px;
+    }
+}

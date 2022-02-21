@@ -1,0 +1,9 @@
+
+@font-face {
+    font-family: 'FZFENGYKSFU';
+    src: url('../font/FZFENGYKSFU_XI--GB1-0-pc-EUC-h.woff') format('woff');
+}
+body {
+    font-family: 'FZFENGYKSFU';
+    font-size: 30px;
+}
