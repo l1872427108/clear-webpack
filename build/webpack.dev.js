@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const commonConfig = require('./webpack.comm');
-const merge = require('webpack-merge');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const devConfig = {
     mode: 'development', 
     devtool: 'cheap-module-eval-source-map',
@@ -42,4 +40,4 @@ const devConfig = {
     }
 }
 
-module.exports = merge(commonConfig, devConfig);
+module.exports = devConfig;

@@ -2,10 +2,13 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+const devConfig = require('./webpack.dev');
+const prodConfig = require('./webpack.prod');
 
 const webpack = require('webpack');
 
-module.exports = {
+const commonConfig  = {
     entry: {
         // lodash: './src/lodash.js',
         main: './src/index.js',
@@ -107,14 +110,27 @@ module.exports = {
                     // 打包的名字
                     filename: 'vendors.js'
                 },
-                // default: {
-                //     priority: -20,
-                //     // b 代码已经打包了a， a 厘米的b就不会放进来了
-                //     // 如果已经打包过了，那么就忽视直接去使用
-                //     reuseExistingChunk: true,
-                //     filename: 'common.js'
-                // }
+                default: {
+                    priority: -20,
+                    // b 代码已经打包了a， a 厘米的b就不会放进来了
+                    // 如果已经打包过了，那么就忽视直接去使用
+                    reuseExistingChunk: true,
+                    filename: 'common.js'
+                }
             }
         }
+    }
+}
+
+module.exports = (env) => {
+    console.log(env);  // { production: true }
+    // production
+    // --env.production=123
+    if (env && env.production) {
+        // 生产环境
+        return merge(commonConfig, prodConfig)
+    } else {
+        // 开发环境
+        return merge(commonConfig, devConfig);
     }
 }
