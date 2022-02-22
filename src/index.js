@@ -1,9 +1,9 @@
-import _ from 'lodash';
+// import { ui } from './jquery.ui.js';
 
-import $ from 'jquery';
+// ui();
 
-const dom = $('<div>');
-dom.html(_.join(['dell', 'lee', 'hello', 'world']), '----');
-$('body').append(dom);
-
-// 旧版本的 webpack ， 两次打包的值也可能是不一样的
+// 模块自身
+console.log(this);
+// !== window
+// 这种变更，实现一些webpack 不支持的。
+// 垫片 一般就是 webpack 不能用的。

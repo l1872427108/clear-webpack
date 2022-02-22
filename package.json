@@ -29,6 +29,7 @@
     "eslint": "^8.7.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
+    "imports-loader": "^1.2.0",
     "mini-css-extract-plugin": "^1.6.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss-loader": "^4.3.0",

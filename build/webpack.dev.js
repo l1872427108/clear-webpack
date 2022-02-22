@@ -1,8 +1,8 @@
 const webpack = require('webpack');
-
+const path = require('path');
 const commonConfig = require('./webpack.comm');
 const merge = require('webpack-merge');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const devConfig = {
     mode: 'development', 
     devtool: 'cheap-module-eval-source-map',
@@ -23,7 +23,7 @@ const devConfig = {
 
     output: {
         filename: '[name].js',
-        chunkFilename: '[name].chunk.name'
+        // chunkFilename: '[name].chunk.name.js'
     },
 
     plugins: [
@@ -33,14 +33,11 @@ const devConfig = {
         // })
     ],
 
-    optimization: {
-    },
-
     devServer: {
-      contentBase: './dist',
+      contentBase: path.resolve(__dirname, '../dist'),
       open: true,
       port: 8080,
-      hot: true
+      hot: true,
     //   hotOnly: true
     }
 }

@@ -3,6 +3,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const webpack = require('webpack');
+
 module.exports = {
     entry: {
         // lodash: './src/lodash.js',
@@ -20,9 +22,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                use: {
+                exclude: /node_modules/,
+                use: [{
                     loader: 'babel-loader'
-                }
+                }]
             },
 
             {
@@ -53,6 +56,12 @@ module.exports = {
             // 跟路径 build 上一层
             root: path.resolve(__dirname, '../'),
             filename: 'dist'
+        }),
+        // 当我发现一个模块用来 $ , 在这个模块自动的引入 jquery
+        // 垫片，解决之前存在的问题
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            _: 'lodash'
         })
     ],
     
@@ -62,9 +71,9 @@ module.exports = {
         // 业务逻辑和库 的关联逻辑的代码  manifest 默认是存在与业务和库, 
         // 旧版本可能因为 manifest 内置的之间的内容可能发生变化
         // runtime 就会抽离出来，放的就是关系的代码
-        runtimeChunk: {
-            name: 'runtime'
-        },
+        // runtimeChunk: {
+        //     name: 'runtime'
+        // },
         usedExports: true,
         splitChunks: {
             // 代码分割的时候只对异步代码生效
@@ -96,15 +105,15 @@ module.exports = {
                     // 优先级
                     priority: -10,
                     // 打包的名字
-                    // filename: 'vendors.js'
+                    filename: 'vendors.js'
                 },
-                default: {
-                    priority: -20,
-                    // b 代码已经打包了a， a 厘米的b就不会放进来了
-                    // 如果已经打包过了，那么就忽视直接去使用
-                    reuseExistingChunk: true,
-                    filename: 'common.js'
-                }
+                // default: {
+                //     priority: -20,
+                //     // b 代码已经打包了a， a 厘米的b就不会放进来了
+                //     // 如果已经打包过了，那么就忽视直接去使用
+                //     reuseExistingChunk: true,
+                //     filename: 'common.js'
+                // }
             }
         }
     }

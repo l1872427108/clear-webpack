@@ -25,7 +25,7 @@ const prodConfig = {
     output: {
         // 源码没有改变， contenthash 就不会变化
         filename: '[name].[contenthash].js',
-        chunkFilename: '[name].[contenthash].name'
+        chunkFilename: '[name].[contenthash].js'
     },
 
     plugins: [
