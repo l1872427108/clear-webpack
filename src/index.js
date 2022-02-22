@@ -1,17 +1,27 @@
 // import 异步加载就会打包的。
-async function getComponent() {
-    const {default: _} = await import (/* webpackChunkName:"lodash" */ 'lodash')
-    // 异步加载这个模块   default 兼容 commonjs
-    // return import(/* webpackChunkName:"lodash" */ 'lodash').then(({default: _}) => {
-    var element = document.createElement('div');
-    element.innerHTML = _.join(['Dell', 'Lee'], '-')
-    return element;
-    // })
-}
+// async function getComponent() {
+//     const {default: _} = await import (/* webpackChunkName:"lodash" */ 'lodash')
+//     // 异步加载这个模块   default 兼容 commonjs
+//     // return import(/* webpackChunkName:"lodash" */ 'lodash').then(({default: _}) => {
+//     var element = document.createElement('div');
+//     element.innerHTML = _.join(['Dell', 'Lee'], '-')
+//     return element;
+//     // })
+// }
+// document.addEventListener('click', () => {
+//     getComponent().then(element => {
+//         document.body.appendChild(element);
+//     })
+// }
 
+// 加载 click 文件
+// 不是非得等到点击的时候， 发现主要的 js 加载完之后。 偷偷去加载 
 document.addEventListener('click', () => {
-    getComponent().then(element => {
-        document.body.appendChild(element);
+    // /* webpackPrefetch: true */
+    // Load 与核心代码一起加载
+    // webpackPrefetch 比较优
+    import(/* webpackPrefetch: true */'./click.js').then(({default: func}) => {
+        func();
     })
 })
 
