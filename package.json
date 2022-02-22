@@ -39,6 +39,7 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/runtime-corejs2": "^7.16.7",
     "jquery": "^3.6.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "uu-uui": "^1.2.0"
   }
 }

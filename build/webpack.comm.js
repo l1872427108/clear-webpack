@@ -71,7 +71,11 @@ module.exports = {
             minSize: 30000,
             maxSize: 0,  // 50kb   lodash 1mb 可能进行二次拆分
             // 当一个模块至少倍用来多少次才来进行代码分割
-            minChunks: 1,
+
+            // lodash 到底要不要分割呢? /dist/chunk文件。 如果两个以上的文件都依赖 lodash
+            // 才进行生成一个 lodash 
+            // 打包生成的
+            minChunks: 2,
             // 10个类库，同时加载五个, 超过五个就不会做代码分割了
             maxAsyncRequests: 5,
             // 整个网站入口进行加载的时候，入口文件引入的库最多也能引入 3个, 超过就不做代码分割了。
@@ -90,7 +94,7 @@ module.exports = {
                     // 优先级
                     priority: -10,
                     // 打包的名字
-                    filename: 'vendors.js'
+                    // filename: 'vendors.js'
                 },
                 default: {
                     priority: -20,
