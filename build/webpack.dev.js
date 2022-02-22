@@ -21,6 +21,11 @@ const devConfig = {
         ]
     },
 
+    output: {
+        filename: '[name].js',
+        chunkFilename: '[name].chunk.name'
+    },
+
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         // new BundleAnalyzerPlugin({

@@ -5,7 +5,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 const prodConfig = {
 
     mode: 'production',
-    devtool: 'cheap-module-source-map',
+    // devtool: 'cheap-module-source-map',
     module: {
         rules: [
             {
@@ -21,6 +21,13 @@ const prodConfig = {
             },
         ]
     },
+
+    output: {
+        // 源码没有改变， contenthash 就不会变化
+        filename: '[name].[contenthash].js',
+        chunkFilename: '[name].[contenthash].name'
+    },
+
     plugins: [
         // 还需要对 loader 做一些， 使用插件提供的 loader
         new MiniCssExtractPlugin({

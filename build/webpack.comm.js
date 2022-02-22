@@ -7,15 +7,13 @@ module.exports = {
     entry: {
         // lodash: './src/lodash.js',
         main: './src/index.js',
-        main1: './src/index1.js'
     },
 
     output: {
         path:  path.resolve(__dirname, '../dist'),
         // index.html 只引用了 main.js , main.js 走的 filename 
         // lodash 是在 main.js 中引入的，间接引入走 chunkFilename
-        chunkFilename: '[name].chunk.name',
-        filename: '[name].js'
+        
     },
 
     module: {
@@ -44,6 +42,8 @@ module.exports = {
             }
         ]
     },
+    // 不让提示性能上的警告
+    performance: false,
 
     plugins: [
         new HtmlWebpackPlugin({
@@ -58,6 +58,13 @@ module.exports = {
     
     // 默认的配置内容
     optimization: {
+        // 兼容旧版本
+        // 业务逻辑和库 的关联逻辑的代码  manifest 默认是存在与业务和库, 
+        // 旧版本可能因为 manifest 内置的之间的内容可能发生变化
+        // runtime 就会抽离出来，放的就是关系的代码
+        runtimeChunk: {
+            name: 'runtime'
+        },
         usedExports: true,
         splitChunks: {
             // 代码分割的时候只对异步代码生效
@@ -70,7 +77,7 @@ module.exports = {
             // lodash 到底要不要分割呢? /dist/chunk文件。 如果两个以上的文件都依赖 lodash
             // 才进行生成一个 lodash 
             // 打包生成的
-            minChunks: 2,
+            minChunks: 1,
             // 10个类库，同时加载五个, 超过五个就不会做代码分割了
             maxAsyncRequests: 5,
             // 整个网站入口进行加载的时候，入口文件引入的库最多也能引入 3个, 超过就不做代码分割了。
