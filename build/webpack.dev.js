@@ -7,6 +7,20 @@ const devConfig = {
     mode: 'development', 
     devtool: 'cheap-module-eval-source-map',
 
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader', 'postcss-loader']
+            },
+
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
+            },
+        ]
+    },
+
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         // new BundleAnalyzerPlugin({
@@ -15,7 +29,6 @@ const devConfig = {
     ],
 
     optimization: {
-        usedExports: true
     },
 
     devServer: {

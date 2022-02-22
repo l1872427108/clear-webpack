@@ -6,11 +6,15 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         // lodash: './src/lodash.js',
-        main: './src/index.js'
+        main: './src/index.js',
+        main1: './src/index1.js'
     },
 
     output: {
         path:  path.resolve(__dirname, '../dist'),
+        // index.html 只引用了 main.js , main.js 走的 filename 
+        // lodash 是在 main.js 中引入的，间接引入走 chunkFilename
+        chunkFilename: '[name].chunk.name',
         filename: '[name].js'
     },
 
@@ -21,16 +25,6 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
-            },
-
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader']
-            },
-
-            {
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
             },
 
             {
@@ -64,6 +58,7 @@ module.exports = {
     
     // 默认的配置内容
     optimization: {
+        usedExports: true,
         splitChunks: {
             // 代码分割的时候只对异步代码生效
             chunks: 'all', // webpack 不会直接就做代码分割的 走到cacheGroups
