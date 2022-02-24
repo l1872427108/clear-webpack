@@ -12,7 +12,8 @@
     "dev-anasly": "webpack --profile --json > stats.json --config ./build/webpack.dev.js",
     "dev-build": "webpack --config ./build/webpack.comm.js",
     "dev": "webpack-dev-server --config ./build/webpack.comm.js",
-    "build": "webpack --env production --config ./build/webpack.comm.js"
+    "build": "webpack --env.production --config ./build/webpack.comm.js",
+    "start": "http-server dist"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +30,7 @@
     "eslint": "^8.7.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
+    "http-server": "^14.1.0",
     "imports-loader": "^1.2.0",
     "mini-css-extract-plugin": "^1.6.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
@@ -41,7 +43,8 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "workbox-webpack-plugin": "^6.5.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",

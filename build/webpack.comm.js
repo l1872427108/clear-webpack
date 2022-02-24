@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const devConfig = require('./webpack.dev');
 const prodConfig = require('./webpack.prod');
 
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
 const commonConfig  = {
     entry: {
@@ -62,10 +62,10 @@ const commonConfig  = {
         }),
         // 当我发现一个模块用来 $ , 在这个模块自动的引入 jquery
         // 垫片，解决之前存在的问题
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            _: 'lodash'
-        })
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     _: 'lodash'
+        // })
     ],
     
     // 默认的配置内容
