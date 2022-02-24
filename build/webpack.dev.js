@@ -32,10 +32,44 @@ const devConfig = {
     ],
 
     devServer: {
+      overlay: true,
       contentBase: path.resolve(__dirname, '../dist'),
       open: true,
       port: 8080,
       hot: true,
+    //   historyApiFallback: true,
+    historyApiFallback: {
+        rewrites: [{
+            from: '/abc.html',
+            to: '/list.html'
+        }]
+    },
+      proxy: {
+        //   可以给根目录转发  /
+          index: '',  
+          '/react/api': {
+              
+              target: 'http://www.dell-lee.com',
+            //   对 https 的转发
+              secure: false,
+            //   做了爬虫，可能对 origin 做了限制 
+              changeOrigin: true,
+              pathRewrite: {
+                  'header.json': 'demo.json'
+              },
+            //   跳过转发
+            //   bypass: function (req, res, proxyOptions) {
+            //       if (req,headers.accpet.indexOf('html')) {
+
+            //       }
+            //   },
+            //   headers: {
+                // 模拟一些请求头行为
+            //       host: 'www.dell-lee.com',
+            //       cookie: 'sdfsfa'
+            //   }
+          }
+      }
     //   hotOnly: true
     }
 }

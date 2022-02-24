@@ -1,13 +1,10 @@
-console.log('hello, this si bai');
+import axios from 'axios';
+
+axios.get('/react/api/header.json')
+.then(res => {
+    console.log(res);
+})
 
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-            console.log('service-worker registed');
-        }).catch(error => {
-            console.log('service-worker registed error')
-        });
-    })
-}
+// esint loader 会影响打包速度
+// git eslint 勾子。  自动执行 eslint src
