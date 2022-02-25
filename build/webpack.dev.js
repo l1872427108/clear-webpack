@@ -34,7 +34,7 @@ const devConfig = {
     devServer: {
       overlay: true,
       contentBase: path.resolve(__dirname, '../dist'),
-      open: true,
+      // open: true,
       port: 8080,
       hot: true,
     //   historyApiFallback: true,
@@ -69,8 +69,8 @@ const devConfig = {
             //       cookie: 'sdfsfa'
             //   }
           }
-      }
-    //   hotOnly: true
+      },
+      hotOnly: true
     }
 }
 

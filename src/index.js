@@ -1,10 +1,5 @@
-import axios from 'axios';
 
-axios.get('/react/api/header.json')
-.then(res => {
-    console.log(res);
-})
+import _ from 'lodash';
 
 
-// esint loader 会影响打包速度
-// git eslint 勾子。  自动执行 eslint src
+console.log(_.join(['xiao', 'bai'], '~'));
