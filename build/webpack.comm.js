@@ -8,43 +8,54 @@ const prodConfig = require('./webpack.prod');
 const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 const webpack = require('webpack');
 
-const plugins = [
-    new HtmlWebpackPlugin({
-        template: './public/index.html'
-    }),
-    new CleanWebpackPlugin({
-        // 跟路径 build 上一层
-        root: path.resolve(__dirname, '../'),
-        filename: 'dist'
-    }),
-    // 当我发现一个模块用来 $ , 在这个模块自动的引入 jquery
-    // 垫片，解决之前存在的问题
-    // new webpack.ProvidePlugin({
-    //     $: 'jquery',
-    //     _: 'lodash'
-    // }),
-]
+const makePlugins = (configs) => {
+    const plugins = [
+        new CleanWebpackPlugin({
+            // 跟路径 build 上一层
+            root: path.resolve(__dirname, '../'),
+            filename: 'dist'
+        }),
+        // 当我发现一个模块用来 $ , 在这个模块自动的引入 jquery
+        // 垫片，解决之前存在的问题
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     _: 'lodash'
+        // }),
+    ]
 
-const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
-console.log(files);
-files.forEach(file => {
-    if (/.*\.dll.js/.test(file)) {
-        plugins.push(new AddAssetHtmlWebpackPlugin({
-            filepath: path.resolve(__dirname, '../dll/', file)
+    Object.keys(configs.entry).forEach(item => {
+        plugins.push(new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: `${item}.html`,
+            // 要引入的打包生成的 js
+            chunks: ['vendors', item]
         }))
-    }
+    })
 
-    if (/.*\.manifest.json/.test(file)) {
-        plugins.push(new webpack.DllReferencePlugin({
-            manifest: path.resolve(__dirname, '../dll/', file)
-        }))
-    }
-})
+    const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
+    files.forEach(file => {
+        if (/.*\.dll.js/.test(file)) {
+            plugins.push(new AddAssetHtmlWebpackPlugin({
+                filepath: path.resolve(__dirname, '../dll/', file)
+            }))
+        }
+
+        if (/.*\.manifest.json/.test(file)) {
+            plugins.push(new webpack.DllReferencePlugin({
+                manifest: path.resolve(__dirname, '../dll/', file)
+            }))
+        }
+    })
+
+    return plugins;
+}
+
+
 
 const commonConfig  = {
     entry: {
-        // lodash: './src/lodash.js',
-        main: './src/index.js'
+        index: './src/index.js',
+        list: './src/list.js'
     },
     resolve: {
         // 资源类的文件需要写后缀
@@ -97,7 +108,7 @@ const commonConfig  = {
     performance: false,
 
     plugins: [
-        ...plugins
+        // ...plugins
         // new AddAssetHtmlWebpackPlugin({
         //     filepath: path.resolve(__dirname, '../dll/vendors.dll.js')
         // }),
@@ -169,6 +180,11 @@ const commonConfig  = {
         }
     }
 }
+
+
+commonConfig.plugins = makePlugins(commonConfig);
+
+
 
 module.exports = (env) => {
     console.log(env);  // { production: true }
